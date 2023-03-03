@@ -1,0 +1,23 @@
+{
+  "name": "js-test-coverage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sonarqube-Testing/js-test-coverage.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sonarqube-Testing/js-test-coverage/issues"
+  },
+  "homepage": "https://github.com/Sonarqube-Testing/js-test-coverage#readme",
+  "devDependencies": {
+    "jest": "^29.4.3"
+  }
+}
