@@ -18,7 +18,7 @@ jobs:
       - name: Test and coverage
         run: yarn jest --coverage
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets. SONAR_TOKEN }}
+        run: |
+          choco install openjdk11
+          choco install sonarqube
+          sonar-scanner.bat -Dsonar.login=${{ secrets.SONAR_TOKEN }}
