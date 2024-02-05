@@ -19,7 +19,8 @@ jobs:
         run: yarn jest --coverage
       - name: SonarCloud Scan
         run: |
-          choco install openjdk11
+          $env:PATH = ".\sonar-scanner\bin;$env:PATH"
+          choco install openjdk17
           choco install sonarqube
           sonar-scanner -v
           sonar-scanner -Dsonar.login=${{ secrets.SONAR_TOKEN }}
