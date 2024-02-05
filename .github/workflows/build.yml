@@ -1,26 +1,32 @@
 name: Build
 on:
- push:
-   branches:
-     - main
- pull_request:
-   types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
 jobs:
   sonarcloud:
     name: SonarCloud
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 
-      - name: Install dependencies
-        run: yarn
-      - name: Test and coverage
-        run: yarn jest --coverage
-      - name: SonarCloud Scan
+          fetch-depth: 0
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'adopt'
+          java-version: '21'
+
+      - name: Download SonarQube Scanner
+        run: |
+          Invoke-WebRequest -Uri https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472.zip -OutFile sonar-scanner.zip
+          Expand-Archive -Path sonar-scanner.zip -DestinationPath sonar-scanner
+
+      - name: Configure SonarQube Scanner
         run: |
           $env:PATH = ".\sonar-scanner\bin;$env:PATH"
-          choco install openjdk17
-          choco install sonarqube
           sonar-scanner -v
           sonar-scanner -Dsonar.login=${{ secrets.SONAR_TOKEN }}
